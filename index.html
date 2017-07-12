@@ -1,0 +1,39 @@
+<html>
+
+<head>
+    <title>Test</title>
+    <link rel='stylesheet' href="/content/css/bootstrap.min.css">
+    <link rel='stylesheet' href="/content/css/styles.css">
+</head>
+
+<body>
+    <div class='container'>
+        <div class='jumbotron'>
+            <h1>Simple UI <small>for rest API</small></h1>
+        </div>
+
+        <form action="http://localhost:8080/api/file_upload" method="POST" enctype="multipart/form-data">
+            <input id='file_rowser' class='inputfile' type="file" name="file" size="50" />
+            <label for="file_rowser">Choose a file</label>
+            <br />
+            <input id='submiter' class='btn btn-large btn-info' type="submit" value="Upload" />
+        </form>
+
+        <div id='file_holder'>
+            <div class='panel panel-default'>
+                <div class='panel-heading'>
+                    <h1 id='success_label' class='panel-title'>Loading...</h1>
+                </div>
+                <div class='panel-body'>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src='/content/js/jquery-3.2.1.min.js'></script>
+    <script src='/content/js/bootstrap.min.js'></script>
+    <script src='frontend.js'></script>
+</body>
+
+</html>
