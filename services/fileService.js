@@ -3,12 +3,12 @@ var fs = require('fs'),
 
 //Firebase config
 var config = {
-    apiKey: "AIzaSyBymiC961ILwdtuz-V8UU_GW7ouYItiCL0",
+    apiKey: "",
     authDomain: "rest-starter.firebaseapp.com",
     databaseURL: "https://rest-starter.firebaseio.com",
     projectId: "rest-starter",
     storageBucket: "",
-    messagingSenderId: "189033026622"
+    messagingSenderId: ""
 };
 
 firebase.initializeApp(config);
