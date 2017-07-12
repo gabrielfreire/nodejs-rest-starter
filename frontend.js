@@ -6,7 +6,8 @@ var fileHolder = document.querySelector('#file_holder'),
     listHolder = document.querySelector('#list_holder'),
     label = document.querySelector('#success_label'),
     panelBody = document.querySelector('.panel-body'),
-    fileName;
+    fileName,
+    myFirebaseRef = new Firebase("https://rest-starter.firebaseio.com/");
 
 //Hide the image placeholder
 fileHolder.style.opacity = '0';
@@ -66,6 +67,8 @@ listFilesBtn.onclick = function(e) {
 
     e.preventDefault();
 
+    cleanDataList();
+
     $.ajax({
         url: '/api/file_upload',
         type: 'GET',
@@ -99,6 +102,41 @@ listFilesBtn.onclick = function(e) {
     });
 
 }
+
+function cleanDataList() {
+    listHolder.innerHTML = '';
+}
+
+myFirebaseRef.on('value', function(snapshot) {
+    cleanDataList();
+
+    var resp = snapshot.val();
+
+    var filesKeys = Object.keys(resp.files),
+        files = [];
+
+    for (var i = 0; i < filesKeys.length; i++) {
+
+        files.push(resp.files[filesKeys[i]]);
+
+    }
+
+    for (var i = 0; i < files.length; i++) {
+
+        var label = document.createElement('p'),
+            div = document.createElement('div');
+
+        div.setAttribute('class', 'label label-lg label-success');
+        div.style.margin = '2px';
+        label.innerHTML = '<strong>Image ' + (i + 1) + '</strong>'
+        div.innerHTML = files[i].filename;
+
+        listHolder.appendChild(label);
+        listHolder.appendChild(div);
+
+    }
+});
+
 fileBrowser.onchange = function(e) {
 
     var fileName = '';
