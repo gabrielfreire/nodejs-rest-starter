@@ -6,7 +6,7 @@ var express = require('express'),
     upload = multer({ dest: '/tmp/' });
 
 uploaderRouter
-    .route('/file_upload')
+    .route('/files')
     .post(upload.single('file'), function(req, res) {
         var path = "./uploads/" + req.file.originalname,
             response;
@@ -25,7 +25,6 @@ uploaderRouter
                     res.status(401).send(response);
 
                 } else {
-
                     response = {
                         message: 'File ' + req.file.originalname + ' uploaded successfully',
                         filename: req.file.originalname

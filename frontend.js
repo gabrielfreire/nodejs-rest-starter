@@ -16,7 +16,7 @@ submit.onclick = function(e) {
     e.preventDefault();
 
     $.ajax({
-        url: '/api/file_upload',
+        url: '/api/files',
         type: 'POST',
         data: new FormData($('form')[0]),
         cache: false,
@@ -51,7 +51,6 @@ submit.onclick = function(e) {
                     label.innerHTML = 'There was an error';
 
                 }
-
                 panelBody.appendChild(img);
             }
         },
@@ -70,32 +69,26 @@ listFilesBtn.onclick = function(e) {
     cleanDataList();
 
     $.ajax({
-        url: '/api/file_upload',
+        url: '/api/files',
         type: 'GET',
         success: function(resp) {
 
-            var filesKeys = Object.keys(resp.files),
-                files = [];
+            if (resp) {
 
-            for (var i = 0; i < filesKeys.length; i++) {
+                var filesKeys = Object.keys(resp),
+                    files = [];
 
-                files.push(resp.files[filesKeys[i]]);
+                for (var i = 0; i < filesKeys.length; i++) {
 
-            }
+                    files.push(resp[filesKeys[i]]);
 
-            for (var i = 0; i < files.length; i++) {
+                }
 
-                var label = document.createElement('p'),
-                    div = document.createElement('div');
+                for (var i = 0; i < files.length; i++) {
 
-                div.setAttribute('class', 'label label-lg label-success');
-                div.style.margin = '2px';
-                label.innerHTML = '<strong>Image ' + (i + 1) + '</strong>'
-                div.innerHTML = files[i].filename;
+                    listHolder.innerHTML += '<p style="margin:2px"><strong>Image ' + (i + 1) + ': </strong><span class="label label-danger">' + files[i].name + '</span></p>';
 
-                listHolder.appendChild(label);
-                listHolder.appendChild(div);
-
+                }
             }
 
         }
@@ -111,29 +104,21 @@ myFirebaseRef.on('value', function(snapshot) {
     cleanDataList();
 
     var resp = snapshot.val();
+    if (resp) {
+        var filesKeys = Object.keys(resp.files),
+            files = [];
 
-    var filesKeys = Object.keys(resp.files),
-        files = [];
+        for (var i = 0; i < filesKeys.length; i++) {
 
-    for (var i = 0; i < filesKeys.length; i++) {
+            files.push(resp.files[filesKeys[i]]);
 
-        files.push(resp.files[filesKeys[i]]);
+        }
 
-    }
+        for (var i = 0; i < files.length; i++) {
 
-    for (var i = 0; i < files.length; i++) {
+            listHolder.innerHTML += '<p style="margin:2px"><strong>Image ' + (i + 1) + ': </strong><span class="label label-danger">' + files[i].name + '</span></p>';
 
-        var label = document.createElement('p'),
-            div = document.createElement('div');
-
-        div.setAttribute('class', 'label label-lg label-success');
-        div.style.margin = '2px';
-        label.innerHTML = '<strong>Image ' + (i + 1) + '</strong>'
-        div.innerHTML = files[i].filename;
-
-        listHolder.appendChild(label);
-        listHolder.appendChild(div);
-
+        }
     }
 });
 
