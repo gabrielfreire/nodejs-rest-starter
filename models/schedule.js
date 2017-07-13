@@ -1,5 +1,5 @@
 function Schedule(id, title, description, location, eventDate) {
-    this.id = id;
+    this.id = id || 0;
     this.title = title || 'default';
     this.description = description || 'default';
     this.location = location || 'default';

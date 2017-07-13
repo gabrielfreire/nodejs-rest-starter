@@ -9,6 +9,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
+
 //API
 app.use('/api', uploaderRouter);
 app.use('/api', scheduleRouter);

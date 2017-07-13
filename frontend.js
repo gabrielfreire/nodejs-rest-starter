@@ -97,7 +97,9 @@ listFilesBtn.onclick = function(e) {
 }
 
 function cleanDataList() {
+
     listHolder.innerHTML = '';
+
 }
 
 myFirebaseRef.on('value', function(snapshot) {
