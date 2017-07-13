@@ -2,7 +2,7 @@
 A simple modular nodejs rest api starter
 
 # TODO
-  - [ ]  Authetication;
+  - [ ]  Authentication;
   - [ ]  Machine learning integration;
   - [ ]  More services;
   - [ ]  Complete CRUD
