@@ -8,3 +8,4 @@ A simple modular nodejs rest api starter
   - [ ]  More services;
   - [ ]  Complete CRUD
   ```
+  - [ ]  Complete CRUD
