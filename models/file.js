@@ -1,5 +1,4 @@
-function File(id, name, size) {
-    this.id = id;
+function File(name, size) {
     this.name = name;
     this.size = size;
 }

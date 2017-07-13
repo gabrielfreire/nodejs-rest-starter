@@ -20,10 +20,9 @@ function FileService() {
 
     this.save = function(file) {
 
-        var fileId = Math.floor(Math.random() * 100),
-            newFile = new File(fileId, file.originalname, file.size);
+        var newFile = new File(file.originalname, file.size);
 
-        storage.ref('files/' + fileId).set(newFile);
+        storage.ref('files').push(newFile);
 
     };
 

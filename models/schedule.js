@@ -1,5 +1,4 @@
-function Schedule(id, title, description, location, eventDate) {
-    this.id = id || 0;
+function Schedule(title, description, location, eventDate) {
     this.title = title || 'default';
     this.description = description || 'default';
     this.location = location || 'default';

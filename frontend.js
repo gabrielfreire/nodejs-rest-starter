@@ -106,6 +106,7 @@ myFirebaseRef.on('value', function(snapshot) {
     cleanDataList();
 
     var resp = snapshot.val();
+    console.log(resp);
     if (resp) {
         var filesKeys = Object.keys(resp.files),
             files = [];

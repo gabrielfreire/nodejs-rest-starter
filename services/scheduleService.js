@@ -6,20 +6,24 @@ var storage = firebase.database();
 function ScheduleService() {
     this.save = function(schedule) {
 
-        var scheduleId = Math.floor(Math.random() * 100),
-            newSchedule = new Schedule(scheduleId,
-                schedule.title,
-                schedule.description,
-                schedule.location,
-                schedule.eventDate);
+        var newSchedule = new Schedule(schedule.title,
+            schedule.description,
+            schedule.location,
+            schedule.eventDate);
 
-        storage.ref('schedules/' + scheduleId).set(newSchedule);
+        storage.ref('schedules').push(newSchedule);
 
     }
 
     this.getAll = function() {
 
         return storage.ref('schedules').once('value');
+
+    }
+
+    this.getOne = function(id) {
+
+        return storage.ref('schedules/' + id).once('value');
 
     }
 

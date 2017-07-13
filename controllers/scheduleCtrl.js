@@ -29,16 +29,10 @@ scheduleRouter
     .route('/schedules/:id')
     .get(function(req, res) {
 
-        scheduleService.getAll().then(function(snapshot) {
+        scheduleService.getOne(req.params.id).then(function(snapshot) {
 
-            var schedules = snapshot.val(),
-                result = schedules[req.params.id] ? schedules[req.params.id] : false;
-
-            if (!result) {
-
-            }
-
-            res.status(200).send(result);
+            var schedule = snapshot.val();
+            res.status(200).send(schedule);
 
         });
 
