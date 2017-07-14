@@ -1,5 +1,5 @@
 # nodejs-rest-starter
-A simple modular nodejs rest api starter
+A simple modular real-time nodejs rest api starter. The idea is to have a Real-time REST API without having to add firebase library in the client-side to listen for updates
 
 # TODO
   - [x]  Add index.html for demo;
