@@ -7,8 +7,8 @@ scheduleRouter
     .post(function(req, res) {
 
         var response = {
-            data: req.body,
-            message: 'success'
+            message: 'Success',
+            status: '200'
         };
 
         scheduleService.save(req.body);
@@ -19,7 +19,13 @@ scheduleRouter
 
         scheduleService.getAll().then(function(snapshot) {
 
-            res.status(200).send(snapshot.val());
+            var response = {
+                status: '200',
+                message: 'Success',
+                data: snapshot.val()
+            };
+
+            res.status(200).send(response);
 
         });
 
@@ -31,11 +37,43 @@ scheduleRouter
 
         scheduleService.getOne(req.params.id).then(function(snapshot) {
 
-            var schedule = snapshot.val();
-            res.status(200).send(schedule);
+            var response = {
+                status: '200',
+                message: 'Success',
+                data: snapshot.val()
+            };
+
+            res.status(200).send(response);
 
         });
 
+    })
+    .put(function(req, res) {
+        var id = req.params.id,
+            newSchedule = req.body;
+
+        scheduleService.update(id, newSchedule).then(function() {
+
+            var response = {
+                status: '200',
+                message: 'Success'
+            };
+
+            res.status(200).send(response);
+        });
+    })
+    .delete(function(req, res) {
+        var id = req.params.id;
+
+        scheduleService.delete(id).then(function() {
+
+            var response = {
+                status: '200',
+                message: 'Success'
+            };
+
+            res.status(200).send(response);
+        });
     });
 
 module.exports = scheduleRouter;

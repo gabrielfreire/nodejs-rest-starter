@@ -27,12 +27,18 @@ function ScheduleService() {
 
     }
 
-    this.update = function(schedule) {
+    this.update = function(id, schedule) {
 
+        var newSchedule = new Schedule(schedule.title,
+            schedule.description,
+            schedule.location,
+            schedule.eventDate);
+
+        return storage.ref('schedules/' + id).update(newSchedule);
     }
 
     this.delete = function(id) {
-
+        return storage.ref('schedules/' + id).remove();
     }
 }
 

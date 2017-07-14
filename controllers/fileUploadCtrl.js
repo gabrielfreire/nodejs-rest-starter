@@ -40,12 +40,15 @@ uploaderRouter
     })
     .get(function(req, res) {
 
-        var files;
-
         fileService.get().then(function(snapshot) {
 
-            files = snapshot.val();
-            res.status(200).send(files);
+            var response = {
+                data: snapshot.val(),
+                status: '200',
+                message: 'Success'
+            };
+
+            res.status(200).send(response);
 
         });
 

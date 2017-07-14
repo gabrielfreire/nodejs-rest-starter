@@ -2,8 +2,10 @@
 var fileHolder = document.querySelector('#file_holder'),
     fileBrowser = document.querySelector('#file_rowser'),
     submit = document.querySelector('#submiter'),
-    listFilesBtn = document.querySelector('#list_files'),
+    // listFilesBtn = document.querySelector('#list_files'),
     listHolder = document.querySelector('#list_holder'),
+    filesList = document.querySelector('#files'),
+    schedulesList = document.querySelector('#schedules'),
     label = document.querySelector('#success_label'),
     panelBody = document.querySelector('.panel-body'),
     fileName,
@@ -11,6 +13,25 @@ var fileHolder = document.querySelector('#file_holder'),
 
 //Hide the image placeholder
 fileHolder.style.opacity = '0';
+
+fileBrowser.onchange = function(e) {
+
+    var fileName = '';
+    var label = e.target.nextElementSibling;
+
+    fileName = e.target.value.split('\\').pop();
+
+    if (fileName) {
+
+        label.innerHTML = fileName;
+
+    } else {
+
+        label.innerHTML = 'Choose a file';
+
+    }
+
+};
 
 submit.onclick = function(e) {
     e.preventDefault();
@@ -62,84 +83,72 @@ submit.onclick = function(e) {
         }
     });
 };
-listFilesBtn.onclick = function(e) {
+// listFilesBtn.onclick = function(e) {
 
-    e.preventDefault();
+//     e.preventDefault();
 
-    cleanDataList();
+//     cleanDataList();
 
-    $.ajax({
-        url: '/api/files',
-        type: 'GET',
-        success: function(resp) {
+//     $.ajax({
+//         url: '/api/files',
+//         type: 'GET',
+//         success: function(resp) {
 
-            if (resp) {
+//             if (resp) {
 
-                var filesKeys = Object.keys(resp),
-                    files = [];
+//                 var filesKeys = Object.keys(resp);
 
-                for (var i = 0; i < filesKeys.length; i++) {
+//                 for (var i = 0; i < filesKeys.length; i++) {
 
-                    files.push(resp[filesKeys[i]]);
+//                     var file = resp[filesKeys[i]];
+//                     filesList.innerHTML += '<p style="margin:2px"><strong>Image ' + (i + 1) + ': </strong><span class="label label-danger">' + file.name + '</span></p>';
 
-                }
+//                 }
 
-                for (var i = 0; i < files.length; i++) {
+//             }
 
-                    listHolder.innerHTML += '<p style="margin:2px"><strong>Image ' + (i + 1) + ': </strong><span class="label label-danger">' + files[i].name + '</span></p>';
+//         }
+//     });
 
-                }
-            }
-
-        }
-    });
-
-}
+// }
 
 function cleanDataList() {
 
-    listHolder.innerHTML = '';
+    filesList.innerHTML = '';
+    schedulesList.innerHTML = '';
 
 }
+
+/**
+ * REALTIME
+ * Listen for changes on the database
+ */
 
 myFirebaseRef.on('value', function(snapshot) {
     cleanDataList();
 
     var resp = snapshot.val();
-    console.log(resp);
+
     if (resp) {
-        var filesKeys = Object.keys(resp.files),
-            files = [];
+        var filesKeys = Object.keys(resp.files);
+        var schedulesKeys = Object.keys(resp.schedules);
+        var totalLength = filesKeys.length + schedulesKeys.length;
+        for (var i = 0; i < totalLength; i++) {
 
-        for (var i = 0; i < filesKeys.length; i++) {
+            if (resp.files[filesKeys[i]]) {
 
-            files.push(resp.files[filesKeys[i]]);
+                var file = resp.files[filesKeys[i]];
+                filesList.innerHTML += '<p style="margin:2px"><strong>Image ' + (i + 1) + ': </strong><span class="label label-danger">' + file.name + '</span></p>';
+
+            }
+            if (resp.schedules[schedulesKeys[i]]) {
+
+                var schedule = resp.schedules[schedulesKeys[i]];
+                schedulesList.innerHTML += '<p style="margin:2px"><strong>Schedule ' + (i + 1) + ': </strong><span class="label label-danger">' + schedule.title + '</span></p>';
+
+            }
 
         }
 
-        for (var i = 0; i < files.length; i++) {
-
-            listHolder.innerHTML += '<p style="margin:2px"><strong>Image ' + (i + 1) + ': </strong><span class="label label-danger">' + files[i].name + '</span></p>';
-
-        }
     }
 });
-
-fileBrowser.onchange = function(e) {
-
-    var fileName = '';
-    var label = e.target.nextElementSibling;
-
-    fileName = e.target.value.split('\\').pop();
-
-    if (fileName) {
-
-        label.innerHTML = fileName;
-
-    } else {
-
-        label.innerHTML = 'Choose a file';
-
-    }
-
-};
