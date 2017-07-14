@@ -77,7 +77,7 @@ submit.onclick = function(e) {
         },
         error: function(err) {
 
-            label.innerHTML = 'Error: ' + err.statusText + ' status: ' + err.status;
+            label.innerHTML = 'Error: ' + err.message + ' status: ' + err.status;
             fileHolder.appendChild(label);
 
         }
@@ -151,4 +151,10 @@ myFirebaseRef.on('value', function(snapshot) {
         }
 
     }
+});
+
+var filesListener = new EventSource('/api/files/update');
+
+filesListener.addEventListener('change', function(e) {
+    console.log(JSON.parse(e.data));
 });

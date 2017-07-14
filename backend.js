@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 app.use('/api', uploaderRouter);
 app.use('/api', scheduleRouter);
 
+
 //Main page
 app.get('/', function(req, res) {
     res.sendFile(__dirname + "/" + "index.html");

@@ -1,4 +1,5 @@
 var express = require('express'),
+    sseExpress = require('sse-express'),
     fs = require('fs'),
     multer = require('multer'),
     fileService = require('../services/fileService'),
@@ -19,7 +20,8 @@ uploaderRouter
 
                     response = {
                         message: 'An error ocurred',
-                        filename: 'No file was uploaded'
+                        filename: 'No file was uploaded',
+                        status: '401'
                     };
 
                     res.status(401).send(response);
@@ -31,6 +33,7 @@ uploaderRouter
                     };
 
                     fileService.save(req.file);
+                    res.app.emit('changed', response);
                     res.status(200).send(response);
 
                 }
@@ -47,11 +50,20 @@ uploaderRouter
                 status: '200',
                 message: 'Success'
             };
-
-            res.status(200).send(response);
+            res.app.emit('changed', response);
+            res.status(401).send(response);
 
         });
 
+    });
+
+//EVENT EMITTER
+uploaderRouter
+    .route('/files/update')
+    .get(sseExpress, function(req, res) {
+        res.app.on('changed', function(data) {
+            res.sse('change', data);
+        })
     });
 
 module.exports = uploaderRouter;
