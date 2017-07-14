@@ -6,7 +6,7 @@ A simple modular nodejs rest api starter
   - [x]  Add controllers;
   - [x]  Add services;
   - [x]  Add models;
-  - [ ]  Emit events from the server so the API's has its own events and don't need to use firebase in the client;
+  - [x]  Emit events from the server so the API's has its own events and don't need to use firebase in the client; those events watch for database changes
   - [ ]  More services, controllers and models;
   - [ ]  Complete CRUD
   - [ ]  Authentication;

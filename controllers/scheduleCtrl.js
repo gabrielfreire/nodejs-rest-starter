@@ -5,13 +5,27 @@ var express = require('express'),
 scheduleRouter
     .route('/schedules')
     .post(function(req, res) {
+        var response,
+            date = req.body.eventDate;
 
-        var response = {
+        //TODO date verification for proper formatting
+        if (!date instanceof Date) {
+
+            // response = {
+            //     message: 'Invalid Date',
+            //     status: '401'
+            // };
+
+            // res.status(401).send(response);
+        }
+
+        response = {
             message: 'Success',
             status: '200'
         };
 
         scheduleService.save(req.body);
+        res.app.emit('changed', response);
         res.status(200).send(response);
 
     })
@@ -19,13 +33,17 @@ scheduleRouter
 
         scheduleService.getAll().then(function(snapshot) {
 
-            var response = {
-                status: '200',
-                message: 'Success',
-                data: snapshot.val()
-            };
+            if (snapshot.val() !== '') {
 
-            res.status(200).send(response);
+                var response = {
+                    status: '200',
+                    message: 'Success',
+                    data: snapshot.val()
+                };
+
+                res.status(200).send(response);
+
+            }
 
         });
 
@@ -59,6 +77,7 @@ scheduleRouter
                 message: 'Success'
             };
 
+            res.app.emit('changed', response);
             res.status(200).send(response);
         });
     })
@@ -72,6 +91,7 @@ scheduleRouter
                 message: 'Success'
             };
 
+            res.app.emit('changed', response);
             res.status(200).send(response);
         });
     });

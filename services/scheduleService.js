@@ -6,10 +6,7 @@ var storage = firebase.database();
 function ScheduleService() {
     this.save = function(schedule) {
 
-        var newSchedule = new Schedule(schedule.title,
-            schedule.description,
-            schedule.location,
-            schedule.eventDate);
+        var newSchedule = new Schedule(schedule.title, schedule.description, schedule.location, schedule.eventDate);
 
         storage.ref('schedules').push(newSchedule);
 
@@ -29,16 +26,15 @@ function ScheduleService() {
 
     this.update = function(id, schedule) {
 
-        var newSchedule = new Schedule(schedule.title,
-            schedule.description,
-            schedule.location,
-            schedule.eventDate);
+        var newSchedule = new Schedule(schedule.title, schedule.description, schedule.location, schedule.eventDate);
 
         return storage.ref('schedules/' + id).update(newSchedule);
     }
 
     this.delete = function(id) {
+
         return storage.ref('schedules/' + id).remove();
+
     }
 }
 

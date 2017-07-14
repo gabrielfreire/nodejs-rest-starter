@@ -22,13 +22,33 @@ function FileService() {
 
         var newFile = new File(file.originalname, file.size);
 
-        storage.ref('files').push(newFile);
+        return storage.ref('files').push(newFile).key;
 
     };
 
     this.get = function() {
 
         return storage.ref('files').once('value');
+
+    }
+
+    this.getOne = function(id) {
+
+        return storage.ref('files/' + id).once('value');
+
+    }
+
+    this.update = function(id, file) {
+
+        var newFile = new File(file.originalname, file.size);
+
+        return storage.ref('files/' + id).update(newFile);
+
+    }
+
+    this.delete = function(id) {
+
+        return storage.ref('files/' + id).remove();
 
     }
 };

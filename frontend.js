@@ -55,7 +55,7 @@ submit.onclick = function(e) {
                 }
 
             }
-            if (resp && resp.filename) {
+            if (resp && resp.name) {
                 //Show again
                 fileHolder.style.opacity = '1';
 
@@ -63,7 +63,7 @@ submit.onclick = function(e) {
 
                 label.innerHTML = resp.message;
 
-                img.setAttribute('src', '/uploads/' + resp.filename);
+                img.setAttribute('src', '/uploads/' + resp.name);
                 img.setAttribute('class', 'img-responsive');
                 img.setAttribute('width', '420px');
                 img.setAttribute('height', 'inherit');
@@ -153,7 +153,7 @@ myFirebaseRef.on('value', function(snapshot) {
     }
 });
 
-var filesListener = new EventSource('/api/files/update');
+var filesListener = new EventSource('/api/updates');
 
 filesListener.addEventListener('change', function(e) {
     console.log(JSON.parse(e.data));

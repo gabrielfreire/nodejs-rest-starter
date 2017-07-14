@@ -27,13 +27,20 @@ uploaderRouter
                     res.status(401).send(response);
 
                 } else {
+
+
+                    //Save to database
+                    var id = fileService.save(req.file);
+
                     response = {
                         message: 'File ' + req.file.originalname + ' uploaded successfully',
-                        filename: req.file.originalname
+                        name: req.file.originalname,
+                        id: id
                     };
 
-                    fileService.save(req.file);
+                    //emit event to SSE
                     res.app.emit('changed', response);
+                    //respond to client
                     res.status(200).send(response);
 
                 }
@@ -45,25 +52,20 @@ uploaderRouter
 
         fileService.get().then(function(snapshot) {
 
-            var response = {
-                data: snapshot.val(),
-                status: '200',
-                message: 'Success'
-            };
-            res.app.emit('changed', response);
-            res.status(401).send(response);
+            if (snapshot.val() !== '') {
+
+                var response = {
+                    data: snapshot.val(),
+                    status: '200',
+                    message: 'Success'
+                };
+
+                res.status(401).send(response);
+
+            }
 
         });
 
-    });
-
-//EVENT EMITTER
-uploaderRouter
-    .route('/files/update')
-    .get(sseExpress, function(req, res) {
-        res.app.on('changed', function(data) {
-            res.sse('change', data);
-        })
     });
 
 module.exports = uploaderRouter;

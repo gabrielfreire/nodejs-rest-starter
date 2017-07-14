@@ -2,7 +2,8 @@ var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
     uploaderRouter = require('./controllers/fileUploadCtrl'),
-    scheduleRouter = require('./controllers/scheduleCtrl');
+    scheduleRouter = require('./controllers/scheduleCtrl'),
+    eventsRouter = require('./controllers/eventsCtrl');
 
 app.use(express.static(__dirname));
 app.use(bodyParser.urlencoded({
@@ -11,9 +12,9 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 //API
+app.use('/api', eventsRouter);
 app.use('/api', uploaderRouter);
 app.use('/api', scheduleRouter);
-
 
 //Main page
 app.get('/', function(req, res) {
