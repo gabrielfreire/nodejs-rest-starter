@@ -153,8 +153,8 @@ myFirebaseRef.on('value', function(snapshot) {
     }
 });
 
-var filesListener = new EventSource('/api/updates');
+var dataListener = new EventSource('/api/updates');
 
-filesListener.addEventListener('change', function(e) {
+dataListener.addEventListener('change', function(e) {
     console.log(JSON.parse(e.data));
 });
