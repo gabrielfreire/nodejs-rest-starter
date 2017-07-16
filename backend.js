@@ -1,6 +1,7 @@
 var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
+    cors = require('cors'),
     uploaderRouter = require('./controllers/fileUploadCtrl'),
     scheduleRouter = require('./controllers/scheduleCtrl'),
     eventsRouter = require('./controllers/eventsCtrl');
@@ -10,6 +11,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
+app.use(cors());
 
 //API
 app.use('/api', eventsRouter);

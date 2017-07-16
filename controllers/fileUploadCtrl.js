@@ -60,7 +60,7 @@ uploaderRouter
                     message: 'Success'
                 };
 
-                res.status(401).send(response);
+                res.status(200).send(response);
 
             }
 
