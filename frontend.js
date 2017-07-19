@@ -8,8 +8,7 @@ var fileHolder = document.querySelector('#file_holder'),
     schedulesList = document.querySelector('#schedules'),
     label = document.querySelector('#success_label'),
     panelBody = document.querySelector('.panel-body'),
-    fileName,
-    myFirebaseRef = new Firebase("https://rest-starter.firebaseio.com/");
+    fileName;
 
 //Hide the image placeholder
 fileHolder.style.opacity = '0';
@@ -83,34 +82,6 @@ submit.onclick = function(e) {
         }
     });
 };
-// listFilesBtn.onclick = function(e) {
-
-//     e.preventDefault();
-
-//     cleanDataList();
-
-//     $.ajax({
-//         url: '/api/files',
-//         type: 'GET',
-//         success: function(resp) {
-
-//             if (resp) {
-
-//                 var filesKeys = Object.keys(resp);
-
-//                 for (var i = 0; i < filesKeys.length; i++) {
-
-//                     var file = resp[filesKeys[i]];
-//                     filesList.innerHTML += '<p style="margin:2px"><strong>Image ' + (i + 1) + ': </strong><span class="label label-danger">' + file.name + '</span></p>';
-
-//                 }
-
-//             }
-
-//         }
-//     });
-
-// }
 
 function cleanDataList() {
 
@@ -121,13 +92,16 @@ function cleanDataList() {
 
 /**
  * REALTIME
- * Listen for changes on the database
+ * Listen for changes on the API
  */
 
-myFirebaseRef.on('value', function(snapshot) {
+var dataListener = new EventSource('/api/updates');
+
+dataListener.addEventListener('change', function(e) {
+    console.log(JSON.parse(e.data));
     cleanDataList();
 
-    var resp = snapshot.val();
+    var resp = JSON.parse(e.data);
 
     if (resp) {
         var filesKeys = Object.keys(resp.files);
@@ -151,10 +125,4 @@ myFirebaseRef.on('value', function(snapshot) {
         }
 
     }
-});
-
-var dataListener = new EventSource('/api/updates');
-
-dataListener.addEventListener('change', function(e) {
-    console.log(JSON.parse(e.data));
 });
