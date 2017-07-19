@@ -23,7 +23,7 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + "/" + "index.html");
 });
 
-var server = app.listen(8080, function() {
+var server = app.listen(function() {
 
     console.log('App listening at http://%s:%s', server.address().address, server.address().port);
 
