@@ -1,6 +1,5 @@
 /**
- * SSE is listening for 'changed' events on the backend so it can send a 'change' event to the client
- * TODO: Better ideas for this? 
+ * SSE events controller
  */
 var express = require('express'),
     eventsRouter = express.Router(),

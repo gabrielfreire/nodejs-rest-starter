@@ -2,7 +2,6 @@
 var fileHolder = document.querySelector('#file_holder'),
     fileBrowser = document.querySelector('#file_rowser'),
     submit = document.querySelector('#submiter'),
-    // listFilesBtn = document.querySelector('#list_files'),
     listHolder = document.querySelector('#list_holder'),
     filesList = document.querySelector('#files'),
     schedulesList = document.querySelector('#schedules'),
