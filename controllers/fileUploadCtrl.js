@@ -38,8 +38,6 @@ uploaderRouter
                         id: id
                     };
 
-                    //emit event to SSE
-                    res.app.emit('changed', response);
                     //respond to client
                     res.status(200).send(response);
 

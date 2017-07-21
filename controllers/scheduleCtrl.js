@@ -25,7 +25,7 @@ scheduleRouter
         };
 
         scheduleService.save(req.body);
-        res.app.emit('changed', response);
+
         res.status(200).send(response);
 
     })
@@ -77,7 +77,6 @@ scheduleRouter
                 message: 'Success'
             };
 
-            res.app.emit('changed', response);
             res.status(200).send(response);
         });
     })
@@ -91,7 +90,6 @@ scheduleRouter
                 message: 'Success'
             };
 
-            res.app.emit('changed', response);
             res.status(200).send(response);
         });
     });
