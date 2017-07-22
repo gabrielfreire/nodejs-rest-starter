@@ -4,7 +4,9 @@ var express = require('express'),
     cors = require('cors'),
     uploaderRouter = require('./controllers/fileUploadCtrl'),
     scheduleRouter = require('./controllers/scheduleCtrl'),
-    eventsRouter = require('./controllers/eventsCtrl');
+    eventsRouter = require('./controllers/eventsCtrl'),
+    videosRouter = require('./controllers/videosCtrl');
+
 
 app.use(express.static(__dirname));
 app.use(bodyParser.urlencoded({
@@ -17,6 +19,7 @@ app.use(cors());
 app.use('/api', eventsRouter);
 app.use('/api', uploaderRouter);
 app.use('/api', scheduleRouter);
+app.use('/api', videosRouter);
 
 //Main page
 app.get('/', function(req, res) {

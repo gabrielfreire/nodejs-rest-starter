@@ -12,6 +12,9 @@
             <h1>Simple UI <small>for rest API</small></h1>
         </div>
 
+        <hr>
+
+        <!-- Photo uploading form -->
         <form action="http://localhost:8080/api/file_upload" method="POST" enctype="multipart/form-data">
             <input id='file_rowser' class='inputfile' type="file" name="file" size="50" />
             <label for="file_rowser">Choose a file</label>
@@ -19,6 +22,7 @@
             <input id='submiter' class='btn btn-large btn-info' type="submit" value="Upload" />
         </form>
 
+        <!-- Where the picture appears after updated -->
         <div id='file_holder'>
             <div class='panel panel-default'>
                 <div class='panel-heading'>
@@ -30,17 +34,61 @@
             </div>
         </div>
 
-        <!-- <button id='list_files' class='btn btn-block btn-info'>Get list of files</button> -->
+        <!-- Tables for the data from the API/Firebase -->
         <hr>
+        <div class='row'>
+            <div class='col-md-6'>
+                <h3>Response from <span class='label label-default'>/api/files</span> and <span class='label label-default'>/api/schedules</span></h3>
+                <p>It's realtime</p>
+                <div class='table-responsive' id='list_holder'>
+                    <div class='col-md-6'>
+                        <table class='table table-striped table-hover'>
+                            <thead>
+                                <tr>
+                                    <th><span>Files</span></th>
+                                </tr>
+                            </thead>
+                            <tbody id='files'>
 
-        <div id='list_holder'>
-            <div id='files' class='col-md-6'>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class='col-md-6'>
+                        <table class='table table-striped table-hover'>
+                            <thead>
+                                <tr>
+                                    <th><span>Schedules</span></th>
+                                </tr>
+                            </thead>
+                            <tbody id='schedules'>
 
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id='files' class='col-md-6'>
+
+                    </div>
+                    <div id='schedules' class='col-md-6'>
+
+                    </div>
+                </div>
             </div>
-            <div id='schedules' class='col-md-6'>
 
+            <!-- Youtube video downloader form -->
+            <div class='col-md-6'>
+                <form>
+                    <div class='form-group'>
+                        <h2>Download videos from Youtube</h2>
+                    </div>
+                    <div class='form-group'>
+                        <input class='form-control' type='text' id='videoUrl' placeholder="Youtube video URL">
+                    </div>
+                    <button id='btnDownload' class='btn btn-success'><strong>Download Video</strong></button>
+                </form>
             </div>
         </div>
+
+        <hr>
 
     </div>
 

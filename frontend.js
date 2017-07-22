@@ -7,7 +7,49 @@ var fileHolder = document.querySelector('#file_holder'),
     schedulesList = document.querySelector('#schedules'),
     label = document.querySelector('#success_label'),
     panelBody = document.querySelector('.panel-body'),
+    downloadBtn = document.querySelector('#btnDownload'),
+    videoUrl = document.querySelector('#videoUrl'),
+    downloadForm = document.querySelector('#downloadForm'),
     fileName;
+
+//send request with window.open
+var open = function(verb, url, data, target) {
+
+    var form = document.createElement("form");
+
+    form.action = url;
+    form.method = verb;
+    form.target = target || "_self";
+
+    if (data) {
+
+        for (var key in data) {
+
+            var input = document.createElement("textarea");
+            input.name = key;
+            input.value = typeof data[key] === "object" ? JSON.stringify(data[key]) : data[key];
+            form.appendChild(input);
+
+        }
+
+    }
+
+    form.style.display = 'none';
+    document.body.appendChild(form);
+
+    form.submit();
+};
+
+//download video from youtube
+downloadBtn.onclick = function(e) {
+
+    e.preventDefault();
+
+    var url = { 'url': videoUrl.value };
+
+    open('POST', '/api/download', url);
+
+}
 
 //Hide the image placeholder
 fileHolder.style.opacity = '0';
@@ -111,13 +153,13 @@ dataListener.addEventListener('change', function(e) {
             if (resp.files[filesKeys[i]]) {
 
                 var file = resp.files[filesKeys[i]];
-                filesList.innerHTML += '<p style="margin:2px"><strong>Image ' + (i + 1) + ': </strong><span class="label label-danger">' + file.name + '</span></p>';
+                filesList.innerHTML += '<td><strong>Image ' + (i + 1) + ': </strong><span>' + file.name + '</span></td>';
 
             }
             if (resp.schedules[schedulesKeys[i]]) {
 
                 var schedule = resp.schedules[schedulesKeys[i]];
-                schedulesList.innerHTML += '<p style="margin:2px"><strong>Schedule ' + (i + 1) + ': </strong><span class="label label-danger">' + schedule.title + '</span></p>';
+                schedulesList.innerHTML += '<td><strong>Schedule ' + (i + 1) + ': </strong><span>' + schedule.title + '</span></td>';
 
             }
 

@@ -4,6 +4,7 @@ var Schedule = require('../models/schedule'),
 var storage = firebase.database();
 
 function ScheduleService() {
+
     this.save = function(schedule) {
 
         var newSchedule = new Schedule(schedule.title, schedule.description, schedule.location, schedule.eventDate);
@@ -36,6 +37,7 @@ function ScheduleService() {
         return storage.ref('schedules/' + id).remove();
 
     }
+
 }
 
 module.exports = new ScheduleService();
